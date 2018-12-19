@@ -1,19 +1,24 @@
 package com.udacity.gradle.builditbigger;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.zizohanto.javajokes.Joker;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements View.OnClickListener {
+    private Button mTellJoke;
 
     public MainActivityFragment() {
     }
@@ -31,6 +36,26 @@ public class MainActivityFragment extends Fragment {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+
+        mTellJoke = root.findViewById(R.id.btn_tell_joke);
+        mTellJoke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Joker joker = new Joker();
+                Toast.makeText(getActivity(), joker.getJoke(), Toast.LENGTH_SHORT).show();
+            }
+        });
         return root;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
