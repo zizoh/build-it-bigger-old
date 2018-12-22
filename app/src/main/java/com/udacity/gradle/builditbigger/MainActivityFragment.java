@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.zizohanto.javajokes.Joker;
+import com.udacity.gradle.builditbigger.javajokes.JokerJava;
+import com.zizohanto.androidjokes.MainActivityAndroidModule;
 
 
 /**
@@ -41,11 +42,16 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         mTellJoke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Joker joker = new Joker();
-                Toast.makeText(getActivity(), joker.getJoke(), Toast.LENGTH_SHORT).show();
+                tellJoke();
             }
         });
         return root;
+    }
+
+    private void tellJoke() {
+        JokerJava jokerJava = new JokerJava();
+        Intent intent = MainActivityAndroidModule.newStartIntent(getActivity(), jokerJava.getJoke());
+        startActivity(intent);
     }
 
     @Override
