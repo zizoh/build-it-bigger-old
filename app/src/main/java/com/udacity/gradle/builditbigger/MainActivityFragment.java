@@ -1,6 +1,5 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,14 +10,12 @@ import android.widget.Button;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.udacity.gradle.builditbigger.javajokes.JokerJava;
-import com.zizohanto.androidjokes.MainActivityAndroidModule;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements View.OnClickListener {
+public class MainActivityFragment extends Fragment {
     private Button mTellJoke;
 
     public MainActivityFragment() {
@@ -49,19 +46,12 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     }
 
     private void tellJoke() {
-        JokerJava jokerJava = new JokerJava();
-        Intent intent = MainActivityAndroidModule.newStartIntent(getActivity(), jokerJava.getJoke());
-        startActivity(intent);
+        new EndpointsAsyncTask().execute(getActivity());
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public void onClick(View view) {
 
     }
 }
