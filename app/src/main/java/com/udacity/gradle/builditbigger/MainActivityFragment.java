@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,13 @@ import android.widget.Button;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.zizohanto.androidjokes.MainActivityAndroidModule;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements EndpointsAsyncTask.OnJokeEventListener {
     private Button mTellJoke;
 
     public MainActivityFragment() {
@@ -46,12 +48,23 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void tellJoke() {
-        new EndpointsAsyncTask().execute(getActivity());
+        EndpointsAsyncTask.getNewInstance(this);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onGetJokeStarted() {
+
+    }
+
+    @Override
+    public void onJokeReceived(String result) {
+        final Intent intent = MainActivityAndroidModule.newStartIntent(getContext(), result);
+        getContext().startActivity(intent);
     }
 }
